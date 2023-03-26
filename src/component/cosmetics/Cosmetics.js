@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getTotal } from "../../utilities/calculatae";
 import { addToDB, removeFromDB, deleteFromDB } from "../../utilities/fakedb";
 
 const Cosmetics = () => {
@@ -10,9 +11,12 @@ const Cosmetics = () => {
 			.then((data) => setCosmetics(data));
 	}, []);
 
+	const total = getTotal(cosmetics);
+
 	return (
 		<div>
 			<h1>Welcome to Aria Cosmetics</h1>
+			<h3>Required ${total}</h3>
 			<hr />
 			{cosmetics.map((cosmetic) => (
 				<Cosmetic
@@ -34,6 +38,8 @@ const cosmetika = {
 	padding: "2px 20px",
 };
 const btn = {
+	color: "white",
+	backgroundColor: "gray",
 	fontSize: "1.5rem",
 	margin: "5px",
 	cursor: "pointer",
@@ -64,7 +70,7 @@ function Cosmetic(props) {
 			<h2>Index: {index}</h2>
 			{/* <h3>ID: {id}</h3> */}
 			<h3>Name: {name}</h3>
-			<h3>Price: {price}</h3>
+			<h3>Price: ${price}</h3>
 			{/* <button
 				style={btn}
 				onClick={addToCartWithParameters}>
